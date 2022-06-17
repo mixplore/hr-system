@@ -3,3 +3,39 @@
 h2 {
   color: $olive;
 }
+
+.empty-state-text {
+  margin: auto;
+  color: $secondary-light;
+}
+
+.table-container {
+  border: none;
+  border-collapse: collapse;
+  background-color: white;
+
+  thead th {
+    color: $accent;
+    background-color: $background;
+  }
+
+  tr {
+    &:nth-child(even) {
+      background-color: $primary;
+    }
+    &:hover {
+      background-color: $accent-light;
+      cursor: pointer;
+    }
+  }
+
+  td,
+  th {
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  td {
+    font-size: 0.8rem;
+  }
+}

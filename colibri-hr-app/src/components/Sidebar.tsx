@@ -1,4 +1,4 @@
-import "./Sidebar.scss";
+import './Sidebar.scss';
 
 const Sidebar = () => (
   <nav aria-label="Sidebar menu" className="sidebar">

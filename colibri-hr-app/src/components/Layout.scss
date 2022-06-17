@@ -1,12 +1,13 @@
 @import '../styles/colors.scss';
 
 .container {
-    height: 100vh;
+  height: 100vh;
+  display: flex;
+  main {
+    padding: 1rem;
     display: flex;
-
-    main {
-        padding: 1rem;
-        flex: 1;
-        background-color: $background;
-    }
+    flex-direction: column;
+    flex: 1;
+    background-color: $background;
+  }
 }

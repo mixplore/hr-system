@@ -1,4 +1,4 @@
-@import "../styles/colors.scss";
+@import '../styles/colors.scss';
 
 .sidebar {
   width: 15rem;
@@ -13,7 +13,7 @@
     text-decoration: none;
     font-weight: 600;
     font-size: 1.1rem;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: $secondary;
     &:hover {
       background-color: $background;
@@ -24,7 +24,6 @@
   .logo {
     padding: 0 1rem;
     color: $accent;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-      sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   }
 }

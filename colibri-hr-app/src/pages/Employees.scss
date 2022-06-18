@@ -10,13 +10,34 @@ h2 {
 }
 
 .table-container {
+  flex: 1;
+}
+
+table {
   border: none;
   border-collapse: collapse;
-  background-color: white;
+  background-color: $white;
+  height: 100%;
 
   thead th {
     color: $accent;
     background-color: $background;
+  }
+  thead {
+    height: 2rem;
+  }
+
+  tbody {
+    display: block;
+    height: calc(100% - 2em);
+    overflow: auto;
+  }
+
+  thead,
+  tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
   }
 
   tr {
@@ -33,9 +54,51 @@ h2 {
   th {
     text-align: center;
     padding: 0.5rem;
+    &:first-child {
+      width: 1rem;
+    }
   }
 
   td {
     font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  table {
+    background-color: transparent;
+    thead {
+      padding: 0;
+      tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+    }
+
+    tr {
+      display: block;
+      margin-bottom: 0.8em;
+      border-radius: 0.4rem;
+      background-color: $white;;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    }
+    
+    td, th {
+      &:first-child {
+        width: auto;
+      }
+    }
+
+    td {
+      height: 1rem;
+      display: block;
+      text-align: right;
+      &::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+      }
+    }
   }
 }

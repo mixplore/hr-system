@@ -1,8 +1,15 @@
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import App from './App';
+import fetchMock from 'jest-fetch-mock';
 
-test('renders title', () => {
+beforeEach(() => {
+  fetchMock.resetMocks();
+});
+
+test('renders title', async () => {
   render(<App />);
-  const titleElement = screen.getByText(/Employees List/i);
-  expect(titleElement).toBeInTheDocument();
+  await act(async () => {
+    const titleElement = await screen.findByText(/Employees List/i);
+    expect(titleElement).toBeInTheDocument();
+  });
 });

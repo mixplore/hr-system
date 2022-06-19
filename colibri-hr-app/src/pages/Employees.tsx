@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { getEmployees } from '../api/requests';
+import { useContext } from 'react';
+import { EmployeeContextType, IEmployee } from '../@types.employee';
+import { EmployeesContext } from '../context/EmployeesContext';
 import './Employees.scss';
 
 type Employee = {
@@ -14,19 +15,14 @@ type Employee = {
 };
 
 const Employees = () => {
-  const [employees, setEmployees] = useState<Employee[]>();
-  useEffect(() => {
-    const getData = async () => {
-      const employeesData = await getEmployees();
-      setEmployees(employeesData);
-    };
-    getData();
-  }, []);
+  const state: EmployeeContextType | null = useContext(EmployeesContext);
 
-  return (
+  return state?.isLoading ? (
+    <div className="empty-state-text">Loading...</div>
+  ) : (
     <>
       <h2>Employees List</h2>
-      {employees && employees.length ? (
+      {state?.employeesData && state.employeesData.length ? (
         <div className="table-container">
           <table>
             <thead>
@@ -41,8 +37,7 @@ const Employees = () => {
               </tr>
             </thead>
             <tbody>
-              {employees.map((employee) => (
-                <tr key={employee.id}>
+              {state.employeesData.map((employee: IEmployee) => (
                   <td data-label={'ID'}>{employee.id}</td>
                   <td data-label={'First Name'}> {employee.first_name}</td>
                   <td data-label={'Last Name'}>{employee.last_name}</td>

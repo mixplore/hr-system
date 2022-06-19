@@ -1,15 +1,24 @@
-import { act, render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from '@testing-library/react';
 import fetchMock from 'jest-fetch-mock';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import { EmployeesContext } from './context/EmployeesContext';
+import App from './App';
+
+const history = createMemoryHistory();
 
 beforeEach(() => {
   fetchMock.resetMocks();
 });
 
 test('renders title', async () => {
-  render(<App />);
-  await act(async () => {
-    const titleElement = await screen.findByText(/Employees List/i);
-    expect(titleElement).toBeInTheDocument();
-  });
+  render(
+    <Router location={'/employees'} navigator={history}>
+      <EmployeesContext.Provider value={{ employeesData: [], isLoading: false }}>
+        <App />
+      </EmployeesContext.Provider>
+    </Router>
+  );
+  const titleElement = await screen.findByText(/Employees List/i);
+  expect(titleElement).toBeInTheDocument();
 });

@@ -1,11 +1,12 @@
 import { useContext } from 'react';
 import { Outlet, useMatch, useNavigate } from 'react-router-dom';
-import { EmployeeContextType, IEmployee } from '../@types.employee';
+import { IEmployee } from '../@types.employee';
 import { EmployeesContext } from '../context/EmployeesContext';
+import { formatDateString } from '../utils/dataParsers';
 import './Employees.scss';
 
 const Employees = () => {
-  const state: EmployeeContextType | null = useContext(EmployeesContext);
+  const { state } = useContext(EmployeesContext);
   const navigate = useNavigate();
   const isMatch = useMatch(`/employees/:employeeId`);
 
@@ -44,7 +45,7 @@ const Employees = () => {
                   <td data-label={'First Name'}> {employee.first_name}</td>
                   <td data-label={'Last Name'}>{employee.last_name}</td>
                   <td data-label={'Email'}>{employee.email}</td>
-                  <td data-label={'Date of Birth'}>{employee.date_of_birth}</td>
+                  <td data-label={'Date of Birth'}>{formatDateString(employee.date_of_birth)}</td>
                   <td data-label={'Industry'}>{employee.industry}</td>
                   <td data-label={'Salary'}>{employee.salary}</td>
                   <td data-label={'Years of Experience'}>{employee.years_of_experience}</td>

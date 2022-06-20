@@ -14,7 +14,8 @@ beforeEach(() => {
 test('renders title', async () => {
   render(
     <Router location={'/employees'} navigator={history}>
-      <EmployeesContext.Provider value={{ employeesData: [], isLoading: false }}>
+      <EmployeesContext.Provider
+        value={{ state: { employeesData: [], isLoading: false }, setState: () => {} }}>
         <App />
       </EmployeesContext.Provider>
     </Router>

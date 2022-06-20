@@ -10,6 +10,6 @@ export interface IEmployee {
 }
 
 export type EmployeeContextType = {
-  employeesData: IEmployee[] | null;
+  employeesData: IEmployee[];
   isLoading: boolean;
 };

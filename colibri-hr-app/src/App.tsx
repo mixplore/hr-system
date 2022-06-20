@@ -5,6 +5,7 @@ import { EmployeesProvider } from './context/EmployeesContext';
 import EmployeeDetails from './pages/EmployeeDetails';
 import EmployeeDetailsEdit from './pages/EmployeeDetailsEdit';
 import Employees from './pages/Employees';
+import Statistics from './pages/Statistics';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
               <Route path=":employeeId" element={<EmployeeDetails />} />
               <Route path="edit" element={<EmployeeDetailsEdit />} />
             </Route>
-            <Route path="statistics" element={<></>} />
+            <Route path="statistics" element={<Statistics />} />
           </Routes>
         </Layout>
       </EmployeesProvider>

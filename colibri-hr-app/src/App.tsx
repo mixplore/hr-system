@@ -3,6 +3,7 @@ import './App.scss';
 import Layout from './components/Layout';
 import { EmployeesProvider } from './context/EmployeesContext';
 import EmployeeDetails from './pages/EmployeeDetails';
+import EmployeeDetailsEdit from './pages/EmployeeDetailsEdit';
 import Employees from './pages/Employees';
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
           <Routes>
             <Route path="employees" element={<Employees />}>
               <Route path=":employeeId" element={<EmployeeDetails />} />
-              <Route path="edit" element={<></>} />
+              <Route path="edit" element={<EmployeeDetailsEdit />} />
             </Route>
             <Route path="statistics" element={<></>} />
           </Routes>

@@ -1,5 +1,6 @@
-import { getEmployees } from './requests';
+import { getEmployees, updateEmployee } from './requests';
 import fetchMock from 'jest-fetch-mock';
+import { IEmployee } from '../@types.employee';
 
 beforeEach(() => {
   fetchMock.resetMocks();
@@ -34,5 +35,18 @@ describe('#getEmployees', () => {
     const employees = await getEmployees();
     expect(employees).toEqual(employeesData);
     expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('#updateEmployee', () => {
+  test('updates the employee details and returns updated employee', async () => {
+    const updatedEmployee = {
+      id: 1,
+      first_name: 'Dave',
+      email: 'dave@dev.com'
+    } as IEmployee;
+    fetchMock.mockResponseOnce(JSON.stringify(updatedEmployee));
+    const res = await updateEmployee(updatedEmployee);
+    expect(res).toStrictEqual(updatedEmployee);
   });
 });

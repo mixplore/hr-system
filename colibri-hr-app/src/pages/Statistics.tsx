@@ -14,8 +14,10 @@ import { EmployeesContext } from '../context/EmployeesContext';
 import {
   getAvgAgeByIndustry,
   getAvgSalaryByIndustry,
-  getAvgSalaryByYOE
+  getAvgSalaryByYOE,
+  getCountByIndustry
 } from '../utils/statistics';
+import './Statistics.scss';
 
 const Statistics = () => {
   const { state } = useContext(EmployeesContext);
@@ -44,6 +46,14 @@ const Statistics = () => {
     };
   }, [state.employeesData]);
 
+  const countByIndustry = useMemo<{ labels: string[]; values: number[] }>(() => {
+    const avgSalaryByYOEMap = getCountByIndustry(state.employeesData);
+    return {
+      labels: Array.from(avgSalaryByYOEMap.keys()),
+      values: Array.from(avgSalaryByYOEMap.values())
+    };
+  }, [state.employeesData]);
+
   return (
     <>
       <h2>Employee Statistics</h2>
@@ -54,7 +64,7 @@ const Statistics = () => {
             labels: avgAgeByIndustry.labels,
             datasets: [
               {
-                label: 'Employees Average Age By Industry',
+                label: 'Average Age By Industry',
                 data: avgAgeByIndustry.values,
                 backgroundColor: '#58508d'
               }
@@ -67,7 +77,7 @@ const Statistics = () => {
             labels: avgSalaryByIndustry.labels,
             datasets: [
               {
-                label: 'Employees Average Salary By Industry',
+                label: 'Average Salary By Industry',
                 data: avgSalaryByIndustry.values,
                 backgroundColor: '#003f5c'
               }
@@ -80,9 +90,22 @@ const Statistics = () => {
             labels: avgSalaryByYOE.labels,
             datasets: [
               {
-                label: 'Employees Average Salary By Years of Experience',
+                label: 'Average Salary By Years of Experience',
                 data: avgSalaryByYOE.values,
-                backgroundColor: ['#ffa600']
+                backgroundColor: ['#5c5a5b']
+              }
+            ]
+          }}
+        />
+        {/* Number of Employees by Industry Chart */}
+        <Bar
+          data={{
+            labels: countByIndustry.labels,
+            datasets: [
+              {
+                label: 'Number of employees by industry',
+                data: countByIndustry.values,
+                backgroundColor: ['#a29cf4']
               }
             ]
           }}

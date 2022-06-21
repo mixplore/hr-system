@@ -1,5 +1,10 @@
 import { IEmployee } from '../@types.employee';
-import { getAvgAgeByIndustry, getAvgSalaryByIndustry, getAvgSalaryByYOE } from './statistics';
+import {
+  getAvgAgeByIndustry,
+  getAvgSalaryByIndustry,
+  getAvgSalaryByYOE,
+  getCountByIndustry
+} from './statistics';
 
 const mockIndustries = ['Books', 'Banks', 'Software'];
 const mockSalaries = [1000, 2000, 3000, 4000, 5000];
@@ -68,28 +73,35 @@ const testCases = [
     getFn: getAvgAgeByIndustry,
     expectedKeys: ['Banks', 'Software', 'Books'],
     expectedValues: [40, 41.5, 45.5],
-    returnsAverage: 'age by industry',
+    returnsStat: 'average age by industry',
     sortedBy: 'average age'
   },
   {
     getFn: getAvgSalaryByIndustry,
     expectedKeys: ['Banks', 'Books', 'Software'],
     expectedValues: [2000, 3000, 3500],
-    returnsAverage: 'salary by industry',
+    returnsStat: 'average salary by industry',
     sortedBy: 'average salary'
   },
   {
     getFn: getAvgSalaryByYOE,
     expectedKeys: [0.7, 2, 6],
     expectedValues: [3000, 1000, 4000],
-    returnsAverage: 'salary by years of experience',
+    returnsStat: 'average salary by years of experience',
     sortedBy: 'years of experience '
+  },
+  {
+    getFn: getCountByIndustry,
+    expectedKeys: ['Banks', 'Books', 'Software'],
+    expectedValues: [1, 2, 2],
+    returnsStat: 'number of employees by industry',
+    sortedBy: 'count of employees'
   }
 ];
 
 describe('Statistics', () => {
   test.each(testCases)(
-    'given an employees array, it returns average $returnsAverage as a map sorted by $sortedBy',
+    'given an employees array, it returns $returnsStat as a map sorted by $sortedBy',
     ({ getFn, expectedKeys, expectedValues }) => {
       const result = getFn(mockData);
       expect(Array.from(result.keys() as IterableIterator<string | number>)).toEqual(expectedKeys);
@@ -98,7 +110,7 @@ describe('Statistics', () => {
   );
 
   test.each(testCases)(
-    'given an employees array, it returns average $returnsAverage as a map sorted by $sortedBy - ignoring null values from data set',
+    'given an employees array, it returns $returnsStat as a map sorted by $sortedBy - ignoring null values from data set',
     ({ getFn, expectedKeys, expectedValues }) => {
       const result = getFn(mockDataWithNullValues);
       expect(Array.from(result.keys() as IterableIterator<string | number>)).toEqual(expectedKeys);

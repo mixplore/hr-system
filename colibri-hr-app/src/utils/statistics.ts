@@ -23,7 +23,9 @@ const getAgeFromBirthdate = (dateString: string) => {
 };
 
 const filterByMissingData = <TItemType>(items: TItemType[], prop: keyof TItemType) =>
-  items.filter((item) => !!item[prop]);
+  items.filter(
+    (item) => !!item[prop] && item[prop] != ('n/a' as unknown as TItemType[keyof TItemType])
+  );
 
 const groupByIndustry = (employees: IEmployee[]) => {
   return groupBy<IEmployee>(employees, 'industry');
@@ -64,4 +66,13 @@ export const getAvgSalaryByYOE = (employees: IEmployee[]) => {
     avgSalaryByYOE.set(+key, avg(value.map((item) => item.salary)));
   });
   return avgSalaryByYOE;
+};
+
+export const getCountByIndustry = (employees: IEmployee[]): Map<string, number> => {
+  const employeesByIndustryMap = groupByIndustry(filterByMissingData(employees, 'industry'));
+  const countByIndustryMap = new Map();
+  employeesByIndustryMap.forEach((value, key) => {
+    countByIndustryMap.set(key, value.length);
+  });
+  return sortMapByValues(countByIndustryMap);
 };

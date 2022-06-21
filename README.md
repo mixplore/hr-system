@@ -1,4 +1,4 @@
-# colibri-hr-system
+# hr-system
 
 A simple UI for an HR system
 

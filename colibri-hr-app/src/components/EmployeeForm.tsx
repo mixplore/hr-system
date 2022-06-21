@@ -15,16 +15,13 @@ const maxLengthValidation = {
 };
 
 const EmployeeForm = ({ defaultValues, onSubmit, isReadOnly }: EmployeeFormPropsType) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm({
+  const { register, handleSubmit, formState } = useForm({
     defaultValues: {
       ...defaultValues,
       date_of_birth: formatDateString(defaultValues.date_of_birth)
     }
   });
+  const { isSubmitting, errors } = formState;
 
   return (
     <form className="employee-form" {...(onSubmit ? { onSubmit: handleSubmit(onSubmit) } : {})}>
@@ -118,8 +115,7 @@ const EmployeeForm = ({ defaultValues, onSubmit, isReadOnly }: EmployeeFormProps
         )}
       </div>
 
-      <button className="submit-btn" type="submit">
-        {isReadOnly ? 'Edit Details' : 'Save'}{' '}
+      <button disabled={isSubmitting} className="submit-btn" type="submit">
       </button>
     </form>
   );

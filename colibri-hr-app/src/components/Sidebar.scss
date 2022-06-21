@@ -16,6 +16,9 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: $secondary;
     &:hover {
+      color: $accent;
+    }
+    &.active-link {
       background-color: $background;
       color: $accent;
     }

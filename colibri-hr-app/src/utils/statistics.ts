@@ -29,11 +29,17 @@ const filterByMissingData = <TItemType>(items: TItemType[], prop: keyof TItemTyp
   items.filter((item) => !!item[prop]);
 
 const groupByIndustry = (employees: IEmployee[]) => {
-  return groupBy<IEmployee>(employees, 'industry');
+  return groupBy<IEmployee>(
+    employees.sort((a, b) => a.industry.localeCompare(b.industry)),
+    'industry'
+  );
 };
 
 const groupyByYOE = (employees: IEmployee[]) => {
-  return groupBy<IEmployee>(employees, 'years_of_experience');
+  return groupBy<IEmployee>(
+    employees.sort((a, b) => a.years_of_experience - b.years_of_experience),
+    'years_of_experience'
+  );
 };
 
 export const getAvgAgeByIndustry = (employees: IEmployee[]) => {

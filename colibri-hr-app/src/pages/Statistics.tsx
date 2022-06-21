@@ -1,7 +1,15 @@
 import { useContext, useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, registerables } from 'chart.js';
-ChartJS.register(...registerables);
+import {
+  Chart,
+  BarController,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Legend,
+  Tooltip
+} from 'chart.js';
+Chart.register(BarController, BarElement, CategoryScale, LinearScale, Legend, Tooltip);
 import { EmployeesContext } from '../context/EmployeesContext';
 import {
   getAvgAgeByIndustry,

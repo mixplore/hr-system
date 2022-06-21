@@ -26,12 +26,12 @@ const EmployeeForm = ({ defaultValues, onSubmit, isReadOnly }: EmployeeFormProps
   return (
     <form className="employee-form" {...(onSubmit ? { onSubmit: handleSubmit(onSubmit) } : {})}>
       <div className="form-field">
-        <label htmlFor="id">ID</label>
+        <label htmlFor="id">{constants.employeeDetails.ID}</label>
         <input readOnly disabled {...register('id')} />
       </div>
 
       <div className="form-field">
-        <label htmlFor="first_name">First Name</label>
+        <label htmlFor="first_name">{constants.employeeDetails.FIRST_NAME}</label>
         <input
           className={errors.first_name && 'error-input'}
           disabled={isReadOnly}
@@ -43,7 +43,7 @@ const EmployeeForm = ({ defaultValues, onSubmit, isReadOnly }: EmployeeFormProps
       </div>
 
       <div className="form-field">
-        <label htmlFor="last_name">Last Name</label>
+        <label htmlFor="last_name">{constants.employeeDetails.LAST_NAME}</label>
         <input
           className={errors.last_name && 'error-input'}
           disabled={isReadOnly}
@@ -55,7 +55,7 @@ const EmployeeForm = ({ defaultValues, onSubmit, isReadOnly }: EmployeeFormProps
       </div>
 
       <div className="form-field">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">{constants.employeeDetails.EMAIL}</label>
         <input
           className={errors.email && 'error-input'}
           disabled={isReadOnly}
@@ -71,7 +71,7 @@ const EmployeeForm = ({ defaultValues, onSubmit, isReadOnly }: EmployeeFormProps
       </div>
 
       <div className="form-field">
-        <label htmlFor="date_of_birth">Date of Birth</label>
+        <label htmlFor="date_of_birth">{constants.employeeDetails.DATE_OF_BIRTH}</label>
         <input
           className={errors.date_of_birth && 'error-input'}
           disabled={isReadOnly}
@@ -83,7 +83,7 @@ const EmployeeForm = ({ defaultValues, onSubmit, isReadOnly }: EmployeeFormProps
       </div>
 
       <div className="form-field">
-        <label htmlFor="industry">Industry</label>
+        <label htmlFor="industry">{constants.employeeDetails.INDUSTRY}</label>
         <input
           className={errors.industry && 'error-input'}
           disabled={isReadOnly}
@@ -95,12 +95,12 @@ const EmployeeForm = ({ defaultValues, onSubmit, isReadOnly }: EmployeeFormProps
       </div>
 
       <div className="form-field">
-        <label htmlFor="salary">Salary</label>
+        <label htmlFor="salary">{constants.employeeDetails.SALARY}</label>
         <input disabled={isReadOnly} type="number" step="any" {...register('salary')} />
       </div>
 
       <div className="form-field">
-        <label htmlFor="years_of_experience">Years of Experience</label>
+        <label htmlFor="years_of_experience">{constants.employeeDetails.YEARS_OF_EXPERIENCE}</label>
         <input
           className={errors.years_of_experience && 'error-input'}
           disabled={isReadOnly}

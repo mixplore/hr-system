@@ -3,7 +3,7 @@ import { getAvgAgeByIndustry, getAvgSalaryByIndustry, getAvgSalaryByYOE } from '
 
 const mockIndustries = ['Books', 'Banks', 'Software'];
 const mockSalaries = [1000, 2000, 3000, 4000, 5000];
-const mockYOE = [2, 5, 6];
+const mockYOE = [2, 0.7, 6];
 
 const mockData = [
   {
@@ -63,42 +63,46 @@ const mockDataWithNullValues = [
   { id: 6, industry: null, salary: null, years_of_experience: null }
 ] as IEmployee[];
 
-describe('#getAvgAgeByIndustry', () => {
-  test('given an employees array, it returns average age by industry as an object', () => {
-    const employees = mockData;
-    const result = getAvgAgeByIndustry(employees);
-    expect(result).toEqual({ Banks: 40, Books: 45.5, Software: 41.5 });
-  });
+const testCases = [
+  {
+    getFn: getAvgAgeByIndustry,
+    expectedKeys: ['Banks', 'Software', 'Books'],
+    expectedValues: [40, 41.5, 45.5],
+    returnsAverage: 'age by industry',
+    sortedBy: 'average age'
+  },
+  {
+    getFn: getAvgSalaryByIndustry,
+    expectedKeys: ['Banks', 'Books', 'Software'],
+    expectedValues: [2000, 3000, 3500],
+    returnsAverage: 'salary by industry',
+    sortedBy: 'average salary'
+  },
+  {
+    getFn: getAvgSalaryByYOE,
+    expectedKeys: [0.7, 2, 6],
+    expectedValues: [3000, 1000, 4000],
+    returnsAverage: 'salary by years of experience',
+    sortedBy: 'years of experience '
+  }
+];
 
-  test('given an employees array, it returns average age by industry as an object ignoring null values', () => {
-    const employees = mockDataWithNullValues;
-    const result = getAvgAgeByIndustry(employees);
-    expect(result).toEqual({ Banks: 40, Books: 45.5, Software: 41.5 });
-  });
-});
+describe('Statistics', () => {
+  test.each(testCases)(
+    'given an employees array, it returns average $returnsAverage as a map sorted by $sortedBy',
+    ({ getFn, expectedKeys, expectedValues }) => {
+      const result = getFn(mockData);
+      expect(Array.from(result.keys() as IterableIterator<string | number>)).toEqual(expectedKeys);
+      expect(Array.from(result.values())).toEqual(expectedValues);
+    }
+  );
 
-describe('#getAvgSalaryByIndustry', () => {
-  test('given an employees array, it returns average salary by industry as an object', () => {
-    const employees = mockData;
-    const result = getAvgSalaryByIndustry(employees);
-    expect(result).toEqual({ Banks: 2000, Books: 3000, Software: 3500 });
-  });
-  test('given an employees array, it returns average salary by industry as an object ignoring null values', () => {
-    const employees = mockDataWithNullValues;
-    const result = getAvgSalaryByIndustry(employees);
-    expect(result).toEqual({ Banks: 2000, Books: 3000, Software: 3500 });
-  });
-});
-
-describe('#getAvgSalaryByYOE', () => {
-  test('given an employees array, it returns average salary by years of experience as an object', () => {
-    const employees = mockData;
-    const result = getAvgSalaryByYOE(employees);
-    expect(result).toEqual({ '2': 1000, '5': 3000, '6': 4000 });
-  });
-  test('given an employees array, it returns average salary by years of experience as an object ignoring null values', () => {
-    const employees = mockDataWithNullValues;
-    const result = getAvgSalaryByYOE(employees);
-    expect(result).toEqual({ '2': 1000, '5': 3000, '6': 4000 });
-  });
+  test.each(testCases)(
+    'given an employees array, it returns average $returnsAverage as a map sorted by $sortedBy - ignoring null values from data set',
+    ({ getFn, expectedKeys, expectedValues }) => {
+      const result = getFn(mockDataWithNullValues);
+      expect(Array.from(result.keys() as IterableIterator<string | number>)).toEqual(expectedKeys);
+      expect(Array.from(result.values())).toEqual(expectedValues);
+    }
+  );
 });

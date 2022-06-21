@@ -20,31 +20,42 @@ import {
 const Statistics = () => {
   const { state } = useContext(EmployeesContext);
 
-  const avgAgeByIndustry = useMemo(
-    () => getAvgAgeByIndustry(state.employeesData),
-    [state.employeesData]
-  );
-  const avgSalaryByIndustry = useMemo(
-    () => getAvgSalaryByIndustry(state.employeesData),
-    [state.employeesData]
-  );
-  const avgSalaryByYOE = useMemo(
-    () => getAvgSalaryByYOE(state.employeesData),
-    [state.employeesData]
-  );
+  const avgAgeByIndustry = useMemo<{ labels: string[]; values: number[] }>(() => {
+    const avgAgeByIndustryMap = getAvgAgeByIndustry(state.employeesData);
+    return {
+      labels: Array.from(avgAgeByIndustryMap.keys()),
+      values: Array.from(avgAgeByIndustryMap.values())
+    };
+  }, [state.employeesData]);
+
+  const avgSalaryByIndustry = useMemo<{ labels: string[]; values: number[] }>(() => {
+    const avgSalaryByIndustryMap = getAvgSalaryByIndustry(state.employeesData);
+    return {
+      labels: Array.from(avgSalaryByIndustryMap.keys()),
+      values: Array.from(avgSalaryByIndustryMap.values())
+    };
+  }, [state.employeesData]);
+
+  const avgSalaryByYOE = useMemo<{ labels: number[]; values: number[] }>(() => {
+    const avgSalaryByYOEMap = getAvgSalaryByYOE(state.employeesData);
+    return {
+      labels: Array.from(avgSalaryByYOEMap.keys()),
+      values: Array.from(avgSalaryByYOEMap.values())
+    };
+  }, [state.employeesData]);
 
   return (
     <>
       <h2>Employee Statistics</h2>
-      <div>
+      <div className="charts-container">
         {/* Average Age By Industry Chart */}
         <Bar
           data={{
-            labels: Object.keys(avgAgeByIndustry),
+            labels: avgAgeByIndustry.labels,
             datasets: [
               {
                 label: 'Employees Average Age By Industry',
-                data: Object.values(avgAgeByIndustry),
+                data: avgAgeByIndustry.values,
                 backgroundColor: '#58508d'
               }
             ]
@@ -53,11 +64,11 @@ const Statistics = () => {
         {/* Average Salary By Industry Chart */}
         <Bar
           data={{
-            labels: Object.keys(avgSalaryByIndustry),
+            labels: avgSalaryByIndustry.labels,
             datasets: [
               {
                 label: 'Employees Average Salary By Industry',
-                data: Object.values(avgSalaryByIndustry),
+                data: avgSalaryByIndustry.values,
                 backgroundColor: '#003f5c'
               }
             ]
@@ -66,12 +77,12 @@ const Statistics = () => {
         {/* Average Salary By Years of Experience Chart */}
         <Bar
           data={{
-            labels: Object.keys(avgSalaryByYOE),
+            labels: avgSalaryByYOE.labels,
             datasets: [
               {
                 label: 'Employees Average Salary By Years of Experience',
-                data: Object.values(avgSalaryByYOE),
-                backgroundColor: ['#ffa600', '#003f5c']
+                data: avgSalaryByYOE.values,
+                backgroundColor: ['#ffa600']
               }
             ]
           }}

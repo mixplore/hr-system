@@ -1,18 +1,15 @@
 import { IEmployee } from '../@types.employee';
 import { formatDateString } from './dataParsers';
 
-const groupBy = <TItemType>(
-  items: TItemType[],
-  prop: keyof TItemType
-): { [key: string]: TItemType[] } =>
+const groupBy = <TItemType>(items: TItemType[], prop: keyof TItemType): Map<string, TItemType[]> =>
   items.reduce((itemsMap, item) => {
-    const key = item[prop] as unknown as string;
-    if (!itemsMap[key]) {
-      itemsMap[key] = [];
+    const key = item[prop];
+    if (!itemsMap.has(key)) {
+      itemsMap.set(key, []);
     }
-    itemsMap[key].push(item);
+    itemsMap.get(key).push(item);
     return itemsMap;
-  }, {} as { [key: string]: TItemType[] });
+  }, new Map());
 
 const avg = (arr: number[]) => {
   return arr.reduce((sum: number, el: number) => sum + el, 0) / arr.length;
@@ -29,10 +26,7 @@ const filterByMissingData = <TItemType>(items: TItemType[], prop: keyof TItemTyp
   items.filter((item) => !!item[prop]);
 
 const groupByIndustry = (employees: IEmployee[]) => {
-  return groupBy<IEmployee>(
-    employees.sort((a, b) => a.industry.localeCompare(b.industry)),
-    'industry'
-  );
+  return groupBy<IEmployee>(employees, 'industry');
 };
 
 const groupyByYOE = (employees: IEmployee[]) => {
@@ -42,29 +36,32 @@ const groupyByYOE = (employees: IEmployee[]) => {
   );
 };
 
-export const getAvgAgeByIndustry = (employees: IEmployee[]) => {
-  const employeesByIndustry = groupByIndustry(filterByMissingData(employees, 'industry'));
-  const avgAgeByIndustry: { [key: string]: number } = {};
-  Object.entries(employeesByIndustry).forEach(([key, value]) => {
-    avgAgeByIndustry[key] = avg(value.map((item) => getAgeFromBirthdate(item.date_of_birth)));
+const sortMapByValues = (objMap: Map<string, number>) =>
+  new Map([...objMap].sort((a, b) => a[1] - b[1]));
+
+export const getAvgAgeByIndustry = (employees: IEmployee[]): Map<string, number> => {
+  const employeesByIndustryMap = groupByIndustry(filterByMissingData(employees, 'industry'));
+  const avgAgeByIndustry: Map<string, number> = new Map();
+  employeesByIndustryMap.forEach((value, key) => {
+    avgAgeByIndustry.set(key, avg(value.map((item) => getAgeFromBirthdate(item.date_of_birth))));
   });
-  return avgAgeByIndustry;
+  return sortMapByValues(avgAgeByIndustry);
 };
 
 export const getAvgSalaryByIndustry = (employees: IEmployee[]) => {
-  const employeesByIndustry = groupByIndustry(filterByMissingData(employees, 'industry'));
-  const avgAgeByIndustry: { [key: string]: number } = {};
-  Object.entries(employeesByIndustry).forEach(([key, value]) => {
-    avgAgeByIndustry[key] = avg(value.map((item) => item.salary));
+  const employeesByIndustryMap = groupByIndustry(filterByMissingData(employees, 'industry'));
+  const avgAgeByIndustry: Map<string, number> = new Map();
+  employeesByIndustryMap.forEach((value, key) => {
+    avgAgeByIndustry.set(key, avg(value.map((item) => item.salary)));
   });
-  return avgAgeByIndustry;
+  return sortMapByValues(avgAgeByIndustry);
 };
 
 export const getAvgSalaryByYOE = (employees: IEmployee[]) => {
-  const employeesByIndustry = groupyByYOE(filterByMissingData(employees, 'years_of_experience'));
-  const avgAgeByIndustry: { [key: string]: number } = {};
-  Object.entries(employeesByIndustry).forEach(([key, value]) => {
-    avgAgeByIndustry[key] = avg(value.map((item) => item.salary));
+  const employeesByYOEMap = groupyByYOE(filterByMissingData(employees, 'years_of_experience'));
+  const avgSalaryByYOE: Map<number, number> = new Map();
+  employeesByYOEMap.forEach((value, key) => {
+    avgSalaryByYOE.set(+key, avg(value.map((item) => item.salary)));
   });
-  return avgAgeByIndustry;
+  return avgSalaryByYOE;
 };

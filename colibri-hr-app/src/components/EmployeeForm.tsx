@@ -116,6 +116,7 @@ const EmployeeForm = ({ defaultValues, onSubmit, isReadOnly }: EmployeeFormProps
       </div>
 
       <button disabled={isSubmitting} className="submit-btn" type="submit">
+        {isReadOnly ? `Edit` : `Save`}
       </button>
     </form>
   );

@@ -1,46 +1,68 @@
-# Getting Started with Create React App
+# HR System App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The app uses React version 18 and is written in Typescript.
 
-## Available Scripts
+## Setup
 
-In the project directory, you can run:
+This project uses `yarn` for package management.
+First, install all dependencies by running the following command in the project's directory.
 
-### `yarn start`
+```shell
+$ yarn
+```
 
-Runs the app in the development mode.\
+### Local development: mock server
+
+The data for this app is loaded from a mock json server.
+Before running the app you need to start this server. You can do so running the following command in the project directory:
+
+```shell
+$ yarn mock:api
+```
+
+The server will be available at [http://localhost:3001](http://localhost:3001)
+
+Then the app can be run in development mode:
+
+```shell
+$ yarn start
+```
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Tests
 
-### `yarn test`
+This project uses `jest` and [React Testing Library](https://github.com/testing-library/react-testing-library#readme).
+To launch the test runner in watch mode you can run:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```shell
+$ yarn test
+```
 
-### `yarn build`
+### Build and deployment
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To create a production build you can do:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```shell
+$ yarn build
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This will create/update the app bundle in the `build` folder.
 
-### `yarn eject`
+### Linting
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```shell
+$ yarn lint
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To fix lint errors:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```shell
+$ yarn lint:fix
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To run `prettier` format:
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```shell
+$ yarn format
+```

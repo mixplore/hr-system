@@ -22,6 +22,14 @@ $ yarn mock:api
 
 The server will be available at [http://localhost:3001](http://localhost:3001)
 
+Next make sure that the api url string is correct in your local `.env` file. For this example is should look like:
+
+```
+REACT_APP_API_URL='http://localhost:3001'
+```
+
+In case the port is different, make sure to update the environment variable accordingly before running the app.
+
 Then the app can be run in development mode:
 
 ```shell

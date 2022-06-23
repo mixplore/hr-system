@@ -13,7 +13,7 @@ const Employees = () => {
       <div className="empty-state-text">Loading...</div>
     ) : (
       <>
-        <h2>Employees List</h2>
+        <h1>Employees List</h1>
         <EmployeesTable employeesData={state.employeesData} />
       </>
     );

@@ -56,7 +56,7 @@ const Statistics = () => {
 
   return (
     <>
-      <h2>Employee Statistics</h2>
+      <h1>Employee Statistics</h1>
       <div className="charts-container">
         {/* Average Age By Industry Chart */}
         <Bar

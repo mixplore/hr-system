@@ -3,7 +3,7 @@ import './Sidebar.scss';
 
 const Sidebar = () => (
   <nav aria-label="Sidebar menu" className="sidebar">
-    <h2 className="logo">HR System</h2>
+    <h1 className="logo">HR System</h1>
     <NavLink className={({ isActive }) => (isActive ? 'active-link' : undefined)} to="employees">
       Employees
     </NavLink>

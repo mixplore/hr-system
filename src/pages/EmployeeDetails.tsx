@@ -10,7 +10,7 @@ const EmployeeDetails = () => {
 
   return (
     <>
-      <h2>Employee Details</h2>
+      <h1>Employee Details</h1>
       <EmployeeForm
         defaultValues={employeeDetails}
         isReadOnly={true}

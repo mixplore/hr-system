@@ -27,7 +27,7 @@ const EmployeeDetails = () => {
 
   return (
     <>
-      <h2>Edit Employee Details</h2>
+      <h1>Edit Employee Details</h1>
       <EmployeeForm defaultValues={employeeDetails} onSubmit={onSubmit} />
     </>
   );

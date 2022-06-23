@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { FieldValues, SubmitHandler } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { IEmployee } from '../@types.employee';
 import { updateEmployee } from '../api/requests';
 import EmployeeForm from '../components/EmployeeForm';
@@ -25,11 +25,13 @@ const EmployeeDetails = () => {
     });
   };
 
-  return (
+  return employeeDetails ? (
     <>
       <h1>Edit Employee Details</h1>
       <EmployeeForm defaultValues={employeeDetails} onSubmit={onSubmit} />
     </>
+  ) : (
+    <Navigate to="/" />
   );
 };
 

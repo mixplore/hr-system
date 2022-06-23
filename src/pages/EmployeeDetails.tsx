@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { IEmployee } from '../@types.employee';
 import EmployeeForm from '../components/EmployeeForm';
 
@@ -8,7 +8,7 @@ const EmployeeDetails = () => {
 
   const employeeDetails = location.state as IEmployee;
 
-  return (
+  return employeeDetails ? (
     <>
       <h1>Employee Details</h1>
       <EmployeeForm
@@ -19,6 +19,8 @@ const EmployeeDetails = () => {
         }
       />
     </>
+  ) : (
+    <Navigate to="/" />
   );
 };
 

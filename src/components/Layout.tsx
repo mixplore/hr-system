@@ -4,7 +4,9 @@ import './Layout.scss';
 
 const Layout = ({ children }: React.PropsWithChildren) => (
   <div className="container">
-    <Sidebar />
+    <aside>
+      <Sidebar />
+    </aside>
     <main>{children}</main>
   </div>
 );

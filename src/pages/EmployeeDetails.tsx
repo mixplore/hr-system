@@ -14,7 +14,9 @@ const EmployeeDetails = () => {
       <EmployeeForm
         defaultValues={employeeDetails}
         isReadOnly={true}
-        onSubmit={() => navigate('/employees/edit', { state: location.state })}
+        onSubmit={() =>
+          navigate(`/employees/${employeeDetails.id}/edit`, { state: location.state })
+        }
       />
     </>
   );

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.scss';
 import Layout from './components/Layout';
 import { EmployeesProvider } from './context/EmployeesContext';
@@ -13,9 +13,11 @@ function App() {
       <EmployeesProvider>
         <Layout>
           <Routes>
-            <Route path="employees" element={<Employees />}>
+            <Route path="*" element={<Navigate to="/employees" replace />} />
+            <Route path="/employees">
+              <Route index element={<Employees />} />
               <Route path=":employeeId" element={<EmployeeDetails />} />
-              <Route path="edit" element={<EmployeeDetailsEdit />} />
+              <Route path=":employeedId/edit" element={<EmployeeDetailsEdit />} />
             </Route>
             <Route path="statistics" element={<Statistics />} />
           </Routes>

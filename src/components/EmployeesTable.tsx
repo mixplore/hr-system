@@ -10,14 +10,14 @@ const EmployeesTable = ({ employeesData }: { employeesData: IEmployee[] }) => {
       <table>
         <thead>
           <tr>
-            <th>{employeeDetails.ID}</th>
-            <th>{employeeDetails.FIRST_NAME}</th>
-            <th>{employeeDetails.LAST_NAME}</th>
-            <th>{employeeDetails.EMAIL}</th>
-            <th>{employeeDetails.DATE_OF_BIRTH}</th>
-            <th>{employeeDetails.INDUSTRY}</th>
-            <th>{employeeDetails.SALARY}</th>
-            <th>{employeeDetails.YEARS_OF_EXPERIENCE}</th>
+            <th scope="col">{employeeDetails.ID}</th>
+            <th scope="col">{employeeDetails.FIRST_NAME}</th>
+            <th scope="col">{employeeDetails.LAST_NAME}</th>
+            <th scope="col">{employeeDetails.EMAIL}</th>
+            <th scope="col">{employeeDetails.DATE_OF_BIRTH}</th>
+            <th scope="col">{employeeDetails.INDUSTRY}</th>
+            <th scope="col">{employeeDetails.SALARY}</th>
+            <th scope="col">{employeeDetails.YEARS_OF_EXPERIENCE}</th>
           </tr>
         </thead>
         <tbody>

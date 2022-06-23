@@ -17,48 +17,46 @@ h1 {
     background-color: $white;
     height: 100%;
 
-    thead th {
-      color: $accent;
-      background-color: $background;
+    thead,
+    tbody tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      td,
+      th {
+        text-align: center;
+        padding: 0.5rem;
+        &:first-child {
+          width: 1rem;
+        }
+      }
     }
+
     thead {
       height: 2rem;
+      th {
+        color: $accent;
+        background-color: $background;
+      }
     }
 
     tbody {
       display: block;
       height: calc(100% - 2em);
       overflow: auto;
-    }
+      tr {
+        &:nth-child(even) {
+          background-color: $primary;
+        }
+        &:hover {
+          background-color: $accent-light;
+          cursor: pointer;
+        }
 
-    thead,
-    tbody tr {
-      display: table;
-      width: 100%;
-      table-layout: fixed;
-    }
-
-    tr {
-      &:nth-child(even) {
-        background-color: $primary;
+        td {
+          font-size: 0.8rem;
+        }
       }
-      &:hover {
-        background-color: $accent-light;
-        cursor: pointer;
-      }
-    }
-
-    td,
-    th {
-      text-align: center;
-      padding: 0.5rem;
-      &:first-child {
-        width: 1rem;
-      }
-    }
-
-    td {
-      font-size: 0.8rem;
     }
   }
 
